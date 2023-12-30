@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles de la Receta: {{ receta.titulo }}{% endblock %}
+
+{% block contenido %}
+  <h2>Receta</h2>
+  <div>
+
+      <h1>{{ receta.titulo }}</h1>
+      <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+      <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
+      <p><strong>Instrucciones:</strong> {{ receta.instrucciones }}</p>
+      <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+      <p><strong>Autor: </strong> {{receta.autor}}</p>
+
+      {% if user.is_authenticated and recetas.autor == user %}
+      <form method="POST" action="{% url 'recetas:detalle' pk=recetas.pk %}">
+          {% csrf_token %}
+          <button type="submit" name="delete_receta">BORRAR</button>
+      </form>
+      {% endif %} 
+
+      {% if user.is_authenticated %}
+      <h4>Añadir comentarios</h4>
+      <form method="post" action="{% url 'recetas:add_comentario' recetas.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+      </form>
+    {% else %}
+        <p>Debe iniciar sesión para dejar un comentario</p>
+        <a href="{% url 'login' %}">INICIAR SESION</a>
+    {% endif %}
+    
+      
+  </div>
+{% endblock contenido %}

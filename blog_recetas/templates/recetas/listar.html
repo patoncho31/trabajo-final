@@ -1,0 +1,33 @@
+<!-- templates/lista_recetas.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Lista de Recetas{% endblock titulo %}
+{% block contenido %}
+    <h2>Listado de Recetas !</h2>
+    {% for receta in recetas %} 
+        <p><a href="{% url 'recetas:detalle' receta.pk %}">  <h3>{{receta.titulo}}</h3>
+                 
+    {% endfor %}
+
+    <div class="submenu">
+        <a href="{% url 'recetas:listar'%}">Listado de Todas las Recetas</a> <br> <br>
+        {% block Categorias %}<h2>Por Categorias</h2>{% endblock Categorias %} 
+        {% for cat in categorias %}
+            <a href="?id={{cat.pk}}">{{cat.nombre}}</a> <br>
+        {% endfor %} <br>
+        
+        {% block Fecha %}<h2>Por Fecha de Publicacion</h2>{% endblock Fecha %} 
+        <a href="?antiguedad_asc=A">Mas antiguas primero</a> 
+        <a href="?antiguedad_desc=D">Mas recientes primero</a> <br>
+
+        {% block Orden %}<h2>Por Orden Alfabético</h2>{% endblock Orden %}
+        <a href="?orden_asc=1">A - Z</a> 
+        <a href="?orden_desc=1">Z - A</a> <br>
+    </div>
+    
+    <br/>
+
+
+{% endblock contenido %}
+

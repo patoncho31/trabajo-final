@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <title>Mi Blog de Recetas{% block titulo %}{% endblock titulo %}</title>
+</head>
+<body class="contenedor">
+    {% block contenido %}
+    
+    <img src="{{recetas.imagenes.url}}" width="10%">
+
+    {% endblock contenido %}
+    <li><a href="{% url 'home_recetas' %}">Inicio</a></li>
+    <li><a href="{% url 'recetas:listar' %}">Listar Recetas</a></li>
+    <li><a href="{% url 'nosotros' %}">Sobre Nosotros</a></li> <br>
+    {% if user.is_authenticated %}
+        <strong>Hola {{ user.username }}</strong>
+        <a href="{% url 'logout' %}">LOGOUT</a>
+    {% else %}
+        <a href="{% url 'login' %}">LOGIN</a>
+        <a href="{% url 'registro' %}">REGISTRO</a>
+    {% endif %}
+</body>
+
+</body>
+</html>

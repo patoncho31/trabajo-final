@@ -1,0 +1,33 @@
+<!-- templates/base_generic.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Blog de Recetas{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Agrega aquí tus enlaces a hojas de estilo, scripts, etc. -->
+</head>
+<body>
+    <header>
+        <h1>Mi Blog de Recetas</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home_recetas' %}">Inicio</a></li>
+                <li><a href="{% url 'nosotros' %}">Sobre Nosotros</a></li>
+
+                <!-- Agrega más enlaces de navegación si es necesario -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} Mi Blog de Recetas</p>
+    </footer>
+
+</body>
+</html>
