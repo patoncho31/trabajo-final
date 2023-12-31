@@ -13,25 +13,45 @@
       <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
       <p><strong>Autor: </strong> {{receta.autor}}</p>
 
-      {% if user.is_authenticated and receta.autor == user %}
-      <form method="POST" action="{% url 'recetas:detalle' pk=receta.pk %}">
-          {% csrf_token %}
-          <button type="submit" name="delete_receta">BORRAR</button>
-      </form>
-      {% endif %} 
-
-      {% if user.is_authenticated %}
-      <h4>Añadir comentarios</h4>
-      <form method="post" action="{% url 'recetas:add_comentario' receta.pk %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Enviar</button>
-      </form>
-    {% else %}
-        <p>Debe iniciar sesión para dejar un comentario</p>
-        <a href="{% url 'login' %}">INICIAR SESION</a>
-    {% endif %}
-    
       
-  </div>
+      {% if user.is_authenticated and receta.autor == user or user.is_staff %}
+        <a href="{% url 'recetas:edit_receta' pk=receta.pk %}"><button type="submit">Editar Receta </button> <br><br>
+            <form method="POST" action="{% url 'recetas:detalle' pk=receta.pk %}">
+                {% csrf_token %}
+                <button type="submit" name="delete_receta">Borrar Receta</button> 
+            </form>
+      {% endif %}
+
+    </div>
+
+    <br>
+      <br>
+        <h4>Comentarios</h4>
+        {% for comentario in comentarios %}
+            <p><strong>{{comentario.usuario}} - {{comentario.fecha_creacion}}</strong></p>
+            <p>{{comentario.contenido}}</p>
+            <form method="post" action="{% url 'recetas:delete_comentario' comentario.id %}">
+                {% csrf_token %}
+                {% if comentario.usuario == user.username or user.is_staff %}
+                    <button type="submit">Borrar</button>
+                    <a href="{% url 'recetas:edit_comentario' comentario_id=comentario.id %}">Editar</a>
+                {% endif %}
+            </form>
+      <br>
+        {% endfor %}
+
+        {% if user.is_authenticated %} 
+            <h4>Añadir comentarios</h4>
+            <form method="post" action="{% url 'recetas:add_comentario' receta.pk %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Enviar</button>
+            </form>
+        {% else %}
+            <p>Debe iniciar sesión para dejar un comentario</p>
+            <a href="{% url 'login' %}">INICIAR SESION</a>
+        {% endif %}<br>
+        <a href="{% url 'recetas:listar' %}">VOLVER</a>
+      
+              
 {% endblock contenido %}
