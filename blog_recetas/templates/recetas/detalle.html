@@ -13,8 +13,8 @@
       <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
       <p><strong>Autor: </strong> {{receta.autor}}</p>
 
-      {% if user.is_authenticated and recetas.autor == user %}
-      <form method="POST" action="{% url 'recetas:detalle' pk=recetas.pk %}">
+      {% if user.is_authenticated and receta.autor == user %}
+      <form method="POST" action="{% url 'recetas:detalle' pk=receta.pk %}">
           {% csrf_token %}
           <button type="submit" name="delete_receta">BORRAR</button>
       </form>
@@ -22,7 +22,7 @@
 
       {% if user.is_authenticated %}
       <h4>Añadir comentarios</h4>
-      <form method="post" action="{% url 'recetas:add_comentario' recetas.pk %}">
+      <form method="post" action="{% url 'recetas:add_comentario' receta.pk %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Enviar</button>

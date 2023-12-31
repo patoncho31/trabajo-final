@@ -25,7 +25,7 @@ class Receta(models.Model):
         
 
 class Comentario(models.Model):
-    noticia = models.ForeignKey(Receta, on_delete=models.CASCADE, related_name='comentarios')
+    receta = models.ForeignKey(Receta, on_delete=models.CASCADE, related_name='comentarios')
     contenido = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     usuario = models.CharField(max_length=50)
