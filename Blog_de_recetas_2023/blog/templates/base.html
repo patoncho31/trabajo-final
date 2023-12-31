@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-ar">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <title>{% block titulo %}Mi Blog {% endblock titulo %}</title>
+</head>
+    {% block contenido %}
+    <main><h1>Blog de recetas 2023</h1></main>
+    <contenedor> <p> Las mejores recetas. </p></contenedor>
+    {% endblock contenido %}
+</body>
+{% block nosotros %}
+
+<nav class="contenedor2"> 
+    <a href="{% url 'home' %}">VOLVER AL INICIO</a></br>
+    
+<a href="{% url 'nosotros' %}">IR A NOSOTROS</a>
+</nav>
+{% endblock nosotros %}
+
+{% block navb %}
+
+<footer>    
+
+    <nav class="contenedor3">
+    <h2>Hola {{ user.username }}</h2>
+ 
+</br><a href="{% url 'recetas:listar' %}">RECETAS</a></br>
+    {% if user.is_authenticated %}
+
+</br><a href="{% url 'addpost' %}">ADDPOST</a></br>   
+</br><a href="{% url 'logout' %}">LOGOUT</a></br>
+    {% else %}
+</br><a href="{% url 'login' %}">LOGIN</a></br>
+</br><a href="{% url 'registro' %}">REGISTRO</a>
+    {% endif %}
+
+    </nav>
+    {% endblock navb %}
+
+</footer>
+
+</html>

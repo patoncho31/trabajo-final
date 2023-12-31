@@ -1,0 +1,37 @@
+</head> 
+{% extends 'base.html' %}
+
+</head>   
+</main>
+
+<h2>aca estan mis recetas !</h2>
+
+{% block contenido %}
+<main>
+<div class="submenu">
+    <h1><a href="{% url 'recetas:listar'%}">Listado de Todas las Recetas</a></h1> <br> <br>
+</main>
+    {% block Categorias %}<h3>Por Categorias</h3>{% endblock Categorias %} 
+    {% for cat in categorias %}
+        <a href="?id={{cat.pk}}">{{cat.nombre}}</a> <br>
+    {% endfor %} <br>
+    
+    {% block Fecha %}<h3>Por Fecha de Publicacion</h3>{% endblock Fecha %}
+    <a href="?antiguedad_asc=A">Mas antiguas primero</a> <br>   
+    <a href="?antiguedad_desc=D">Mas recientes primero</a> <br>
+
+    {% block Orden %}<h3>Por Orden Alfabético</h3>{% endblock Orden %}
+    <a href="?orden_asc=1">A - Z</a> 
+    <a href="?orden_desc=1">Z - A</a> <br>
+</div>
+
+
+{% endblock %}
+
+{% block post %}
+<nav class="contenedorpost1"><h2>xxx</h2></nav>
+
+
+{% endblock %}
+
+</main>

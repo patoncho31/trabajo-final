@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo %}Login{% endblock titulo %}
+{% block contenido %}
+    <form method="POST">{% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </p>usuario</p><input type="text" name="username" placeholder="Usuario">
+    </p>contraseña</p><input type="password" name="password" placeholder="Contraseña">
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}
