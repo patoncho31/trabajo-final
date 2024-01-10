@@ -3,23 +3,17 @@
 from django import forms
 from .models import Receta,Comentario
 
-class RecetaForm(forms.ModelForm):
+class AgregarRecetaForm(forms.ModelForm):
     class Meta:
         model = Receta
-        fields = ['titulo',
-                  'descripcion',
-                  'ingredientes',
-                  'instrucciones',
-                  'categoria',
-                  'imagen']
+        fields = ['titulo', 'descripcion', 'ingredientes', 'instrucciones', 'categoria', 'imagen']
 
-    ##widgets = {
-     ##   'descripcion': forms.Textarea(attrs={'rows': 3}),
-     ##   'ingredientes': forms.Textarea(attrs={'rows': 5}),
-     #   'instrucciones': forms.Textarea(attrs={'rows': 10}),
-   ## }
-   
-      
+    widgets = {
+        'descripcion': forms.Textarea(attrs={'rows': 3}),
+        'ingredientes': forms.Textarea(attrs={'rows': 5}),
+        'instrucciones': forms.Textarea(attrs={'rows': 10}),
+    }
+    
 class ComentarioForm(forms.ModelForm):
    
     class Meta:

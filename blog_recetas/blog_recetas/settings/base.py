@@ -27,9 +27,9 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 
  
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["patoncho31.pythonanywhere.com"]
 
 
 # Application definition

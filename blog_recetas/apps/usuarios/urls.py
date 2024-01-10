@@ -1,6 +1,10 @@
 from django.urls import path
 from .views import user_login, user_logout
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
+
+
 
 
 urlpatterns = [
@@ -9,4 +13,4 @@ urlpatterns = [
     path('registro/', views.Registro.as_view(), name='registro')
 
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

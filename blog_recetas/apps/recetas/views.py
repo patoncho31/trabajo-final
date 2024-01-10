@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from .models import Receta, Categoria, Comentario
-from .forms import RecetaForm, ComentarioForm
+from .forms import AgregarRecetaForm, ComentarioForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib import messages
@@ -68,7 +68,7 @@ def DetalleReceta(request, pk):
         n.delete()
         return redirect('recetas:listar')
     
-       
+    
         
     #COMENTARIO
           
@@ -125,57 +125,3 @@ def AddComentario(request, receta_id):
         Comentario.objects.create(receta = receta, usuario = usuario, contenido = contenido)
         
     return redirect('recetas:detalle', pk = receta_id)
-
-@login_required
-def BorrarComentario(request, comentario_id):
-
-    comentario = get_object_or_404(Comentario, id = comentario_id)   
-    if comentario.usuario == request.user.username:
-        comentario.delete()
-    
-    return redirect('recetas:detalle', pk = comentario.receta.pk)
-
-
-# EDITAR COMENTARIOS
-@login_required #debes estar loggeado para poder editar
-def EditarComentario(request, comentario_id):
-    comentario = get_object_or_404(Comentario, id=comentario_id)
-
-    # mensaje de error si no sos el autor del comentario
-    #if comentario.usuario != request.user.username:
-        #messages.error(request, 'No tenes permiso para editar este comentario')
-        #return redirect('noticias:detalle', pk=comentario.noticia.pk)
-    
-    if request.method == 'POST':
-        form = ComentarioForm(request.POST, instance=comentario)
-        if form.is_valid():
-            form.save()
-            return redirect('recetas:detalle', pk=comentario.receta.pk)
-    else:
-        form = ComentarioForm(instance=comentario)
-    
-    contexto = {
-        'form':form,
-        'comentario':comentario,
-    }
-
-    return render(request, 'recetas/editar_comentario.html', contexto)
-
-
-@login_required
-def EditarReceta(request, pk):
-    receta = get_object_or_404(Receta, pk=pk)
-
-    if request.method == 'POST':
-        form = RecetaForm(request.POST, request.FILES, instance=receta)
-        if form.is_valid():
-            form.save()
-            return redirect('recetas:detalle', pk=pk)
-    else:
-        form = RecetaForm(instance=receta)
-
-    context = {
-        'form': form,
-    }
-    return render(request, 'recetas/editar.html', {'form': form, 'receta': receta})
- 
